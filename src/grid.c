@@ -8,6 +8,8 @@
 void backtrack(int *partial_candidate, bool *solved);
 void generate_next_candidate(int *candidate, int working_index, int next_value);
 unsigned long difftime_in_micros(struct timeval *start_time, struct timeval *stop_time);
+void print_vector(int *vector, int length);
+void copy(int *new_sudoku, int *old_sudoku);
 bool is_valid(int *sudoku);
 bool has_dupes(int * v);
 bool is_complete(int *sudoku);
@@ -66,7 +68,7 @@ void backtrack(int *partial_candidate, bool *solved) {
   }
 
   int candidate[81];
-  memcpy(candidate, partial_candidate, 81);
+  copy(candidate, partial_candidate);
   for (int next_value = 1 ; next_value < 10 ; ++next_value) {
     generate_next_candidate(candidate, working_index, next_value);
     backtrack(candidate, solved);
@@ -87,6 +89,19 @@ unsigned long difftime_in_micros(struct timeval *start_time, struct timeval *sto
        - 1000000L*start_time->tv_sec - start_time->tv_usec;
 }
 
+void print_vector(int *vector, int length) {
+  for(int i = 0; i < length; ++i) {
+    printf("%d ", vector[i]);
+  }
+  printf("\n");
+}
+
+void copy(int *new_sudoku, int *old_sudoku) {
+  for (int i = 0 ; i < 81 ; ++i) {
+    new_sudoku[i] = old_sudoku[i];
+  }
+}
+
 bool is_valid(int *sudoku) {
   int temp[9];
   for (int index = 0 ; index < 9 ; ++index) {
@@ -97,8 +112,8 @@ bool is_valid(int *sudoku) {
   return true;
 }
 
-bool has_dupes(int * v) {
-  int elements[9] = {0,0,0,0,0,0,0,0,0};
+bool has_dupes(int *v) {
+  int elements[9] = {0};
   for (int element_index = 0 ; element_index < 9 ; ++element_index) {
     int element = v[element_index];
     if (element != 0) {
@@ -136,7 +151,9 @@ int find_best_index(int *sudoku) {
 }
 
 int *row(int *sudoku, int row_index, int *row) {
-  memcpy(row, &sudoku[9*row_index], 9);
+  for (int index = 0 ; index < 9 ; ++index) {
+    row[index] = sudoku[9*row_index+index];
+  }
   return row;
 }
 
