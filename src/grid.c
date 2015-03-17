@@ -5,6 +5,9 @@
 #include <string.h>
 #include <sys/time.h>
 
+#define is_bit_set(bitmap, bitindex)  ((bitmap & (1 << (bitindex - 1))) != 0)
+#define set_bit(bitmap, bitindex)     (bitmap |= (1 << (bitindex - 1)))
+
 void backtrack(int *partial_candidate, bool *solved);
 void generate_next_candidate(int *candidate, int working_index, int next_value);
 unsigned long difftime_in_micros(struct timeval *start_time, struct timeval *stop_time);
@@ -114,14 +117,13 @@ bool is_valid(int *sudoku) {
 }
 
 bool has_dupes(int *v) {
-  int elements[9] = {0};
-  for (int element_index = 0 ; element_index < 9 ; ++element_index) {
-    int element = v[element_index];
-    if (element != 0) {
-      if (elements[element-1] == 1) {
+  int bitmap = 0;
+  for (int i = 0 ; i < 9 ; ++i) {
+    if (v[i] != 0) {
+      if (is_bit_set(bitmap,v[i])) {
         return true;
       } else {
-        elements[element-1] = 1;
+        set_bit(bitmap, v[i]);
       }
     }
   }
