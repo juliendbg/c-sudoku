@@ -2,3 +2,5 @@
 solver
 solver.dSYM
 solver.exe
+gmon.out
+prof_output
