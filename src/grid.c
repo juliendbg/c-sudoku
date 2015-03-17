@@ -62,6 +62,7 @@ void backtrack(int *partial_candidate, bool *solved) {
     print(partial_candidate);
     return;
   }
+
   int working_index = find_best_index(partial_candidate);
   if (working_index < 0) {
     return;
@@ -72,7 +73,7 @@ void backtrack(int *partial_candidate, bool *solved) {
   for (int next_value = 1 ; next_value < 10 ; ++next_value) {
     generate_next_candidate(candidate, working_index, next_value);
     backtrack(candidate, solved);
-    if (solved) {return;}
+    if (*solved) {return;}
   }
 }
 

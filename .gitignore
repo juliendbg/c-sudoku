@@ -1,2 +1,4 @@
+*.swp
 solver
-solver.dSYM/
+solver.dSYM
+solver.exe
