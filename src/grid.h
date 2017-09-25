@@ -1,7 +1,6 @@
-#ifndef __GRID_H__
-#define __GRID_H__
+#pragma once
+
+#include <stdint.h>
 
 void print(uint8_t *sudoku);
 void solve(uint8_t *sudoku);
-
-#endif
