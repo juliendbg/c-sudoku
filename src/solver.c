@@ -3,7 +3,7 @@
 
 #include "grid.h"
 
-int main(int argc, char * argv[]) {
+int main(int argc, char *argv[]) {
   if (argc != 2) {
     printf("Usage: %s filename\n", argv[0]);
     return 1;
@@ -12,8 +12,7 @@ int main(int argc, char * argv[]) {
   char *filename = argv[1];
 
   FILE *fp = fopen(filename, "r");
-  if (fp == NULL)
-  {
+  if (fp == NULL) {
     perror("Error while opening the file.\n");
     exit(EXIT_FAILURE);
   }
@@ -22,7 +21,7 @@ int main(int argc, char * argv[]) {
   char ch;
 
   int index = 0;
-  while( (ch = fgetc(fp)) != EOF ) {
+  while ((ch = fgetc(fp)) != EOF) {
     if (ch != '\n' && index < 81) {
       int number = ch - '0';
       if (number >= 0 && number <= 9) {
@@ -43,4 +42,3 @@ int main(int argc, char * argv[]) {
 
   return 0;
 }
-

@@ -1,5 +1,5 @@
 all:
-	cc -std=c99 -O3 -o solver src/solver.c src/grid.c
+	cc -std=c99 -O3 -march=native -o solver src/solver.c src/grid.c
 
 debug:
 	cc -std=c99 -O0 -g -Wall -Wextra -pedantic -o solver src/solver.c src/grid.c
