@@ -11,7 +11,7 @@
 #define set_bit(bitmap, bitindex) (bitmap |= (1 << (bitindex - 1)))
 
 void backtrack(uint8_t *partial_candidate, bool *solved);
-void generate_next_candidate(uint8_t *candidate, uint8_t working_index,
+void generate_next_candidate(uint8_t *candidate, int8_t working_index,
                              uint8_t next_value);
 uint64_t difftime_in_micros(struct timeval *start_time,
                             struct timeval *stop_time);
@@ -19,7 +19,7 @@ void copy(uint8_t *new_sudoku, uint8_t *old_sudoku);
 bool is_valid(uint8_t *sudoku);
 bool has_dupes(uint8_t *v);
 bool is_complete(uint8_t *sudoku);
-uint8_t find_best_index(uint8_t *sudoku);
+int8_t find_best_index(uint8_t *sudoku);
 uint8_t *row(uint8_t *sudoku, uint8_t row_index, uint8_t *row);
 uint8_t *column(uint8_t *sudoku, uint8_t column_index, uint8_t *column);
 uint8_t *quadrant(uint8_t *sudoku, uint8_t quadrant_index, uint8_t *quadrant);
@@ -72,7 +72,7 @@ void backtrack(uint8_t *partial_candidate, bool *solved) {
     return;
   }
 
-  uint8_t working_index = find_best_index(partial_candidate);
+  int8_t working_index = find_best_index(partial_candidate);
   if (working_index < 0) {
     return;
   }
@@ -88,7 +88,7 @@ void backtrack(uint8_t *partial_candidate, bool *solved) {
   }
 }
 
-void generate_next_candidate(uint8_t *candidate, uint8_t working_index,
+void generate_next_candidate(uint8_t *candidate, int8_t working_index,
                              uint8_t next_value) {
   candidate[working_index] = next_value;
 }
@@ -126,7 +126,7 @@ bool is_valid(uint8_t *sudoku) {
 }
 
 bool has_dupes(uint8_t *v) {
-  uint8_t bitmap = 0;
+  uint16_t bitmap = 0;
   for (uint8_t i = 0; i < 9; ++i) {
     if (v[i] != 0) {
       if (is_bit_set(bitmap, v[i])) {
@@ -151,7 +151,7 @@ bool is_complete(uint8_t *sudoku) {
   return (filled_squares == 81);
 }
 
-uint8_t find_best_index(uint8_t *sudoku) {
+int8_t find_best_index(uint8_t *sudoku) {
   for (uint8_t row = 0; row < 9; ++row) {
     for (uint8_t column = 0; column < 9; ++column) {
       if (sudoku[9 * row + column] == 0) {

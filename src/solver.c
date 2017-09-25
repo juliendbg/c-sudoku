@@ -23,9 +23,9 @@ int main(int argc, char *argv[]) {
   uint8_t index = 0;
   while ((ch = fgetc(fp)) != EOF) {
     if (ch != '\n' && index < 81) {
-      int number = ch - '0';
+      int8_t number = ch - '0';
       if (number >= 0 && number <= 9) {
-        sudoku[index++] = ch - '0';
+        sudoku[index++] = number;
       }
     }
   }
