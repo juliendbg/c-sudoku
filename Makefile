@@ -9,3 +9,6 @@ gprof:
 	./solver samples/06-worldhardest.txt
 	gprof solver gmon.out > prof_output
 
+format:
+	clang-format -i -style=file **/*.c **/*.h
+

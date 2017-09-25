@@ -1,6 +1,6 @@
+#include <stdint.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <stdint.h>
 
 #include "grid.h"
 
@@ -18,13 +18,13 @@ int main(int argc, char *argv[]) {
     exit(EXIT_FAILURE);
   }
 
-  uint8_t sudoku[81];
-  int8_t ch;
+  uint_fast8_t sudoku[81];
+  int_fast8_t ch;
 
-  uint8_t index = 0;
+  uint_fast8_t index = 0;
   while ((ch = fgetc(fp)) != EOF) {
     if (ch != '\n' && index < 81) {
-      int8_t number = ch - '0';
+      int_fast8_t number = ch - '0';
       if (number >= 0 && number <= 9) {
         sudoku[index++] = number;
       }
