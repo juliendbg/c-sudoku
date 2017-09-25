@@ -17,10 +17,10 @@ int main(int argc, char *argv[]) {
     exit(EXIT_FAILURE);
   }
 
-  int sudoku[81];
-  char ch;
+  uint8_t sudoku[81];
+  int8_t ch;
 
-  int index = 0;
+  uint8_t index = 0;
   while ((ch = fgetc(fp)) != EOF) {
     if (ch != '\n' && index < 81) {
       int number = ch - '0';
