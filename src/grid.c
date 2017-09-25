@@ -18,7 +18,7 @@ bool is_valid(uint_fast8_t *sudoku);
 bool has_dupes(uint_fast8_t *v);
 bool is_complete(uint_fast8_t *sudoku);
 int_fast8_t find_best_index(uint_fast8_t *sudoku);
-uint_fast8_t *row(uint_fast8_t *sudoku, uint_fast8_t row_index, uint_fast8_t *row);
+uint_fast8_t *row(uint_fast8_t *sudoku, uint_fast8_t row_index);
 uint_fast8_t *column(uint_fast8_t *sudoku, uint_fast8_t column_index, uint_fast8_t *column);
 uint_fast8_t *quadrant(uint_fast8_t *sudoku, uint_fast8_t quadrant_index, uint_fast8_t *quadrant);
 
@@ -106,7 +106,7 @@ void copy(uint_fast8_t *new_sudoku, uint_fast8_t *old_sudoku) {
 bool is_valid(uint_fast8_t *sudoku) {
   uint_fast8_t temp[9];
   for (uint_fast8_t index = 0; index < 9; ++index) {
-    if (has_dupes(row(sudoku, index, temp))) {
+    if (has_dupes(row(sudoku, index))) {
       return false;
     };
     if (has_dupes(column(sudoku, index, temp))) {
@@ -156,11 +156,8 @@ int_fast8_t find_best_index(uint_fast8_t *sudoku) {
   return -1;
 }
 
-uint_fast8_t *row(uint_fast8_t *sudoku, uint_fast8_t row_index, uint_fast8_t *row) {
-  for (uint_fast8_t index = 0; index < 9; ++index) {
-    row[index] = sudoku[9 * row_index + index];
-  }
-  return row;
+uint_fast8_t *row(uint_fast8_t *sudoku, uint_fast8_t row_index) {
+  return sudoku + 9 * row_index;
 }
 
 uint_fast8_t *column(uint_fast8_t *sudoku, uint_fast8_t column_index, uint_fast8_t *column) {
