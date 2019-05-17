@@ -1,7 +1,8 @@
 *.swp
+callgrind.out.*
+gmon.out
+prof_output
 solver
 solver.dSYM
 solver.exe
-gmon.out
-prof_output
 tags
